@@ -1,0 +1,93 @@
+@use '../../../shared/assets/ui/styles/variables.scss' as *;
+
+.gender-nav {
+  margin-bottom: 200px;
+  padding: 0 81px;
+  @media (max-width: 1100px) {
+    margin-bottom: 100px;
+    padding: 0 61px;
+  }
+  @media (max-width: 650px) {
+    padding: 0;
+    margin-bottom: 60px;
+  }
+
+  &__list {
+    display: flex;
+    @media (max-width: 650px) {
+      display: block;
+    }
+  }
+
+  &__item {
+    & a {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    & img {
+      width: 100%;
+      max-width: 639px;
+      height: auto;
+      transition: all 0.3s ease-in-out;
+      object-fit: cover;
+      aspect-ratio: 639 / 958;
+
+      &:hover {
+        filter: blur(5px);
+        transform: scale(1.02);
+      }
+    }
+  }
+
+  &__item-title {
+    position: absolute;
+    font-size: 30px;
+    color: $bonjour;
+    text-transform: uppercase;
+    bottom: 30px;
+    @media (max-width: 1100px) {
+      font-size: 26px;
+      bottom: 20px;
+    }
+    @media (max-width: 850px) {
+      font-size: 20px;
+      bottom: 15px;
+    }
+    @media (max-width: 475px) {
+      font-size: 15px;
+    }
+  }
+}
+
+.right {
+  right: 50px;
+  @media (max-width: 1100px) {
+    right: 30px;
+  }
+  @media (max-width: 850px) {
+    right: 20px;
+  }
+  @media (max-width: 475px) {
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
+.left {
+  left: 50px;
+  @media (max-width: 1100px) {
+    left: 30px;
+  }
+  @media (max-width: 1100px) {
+    left: 20px;
+  }
+  @media (max-width: 475px) {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

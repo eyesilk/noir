@@ -1,0 +1,84 @@
+import { FC, useEffect, useRef } from 'react';
+import './bag.scss';
+import { useBag, useBagFuncs, useBagStore, useRefetchBag } from '../../../features/bag';
+import { formatPrice, useModalOutside, useRemoveScroll } from '../../../shared/utils';
+import { UiButtonCross } from '../../../shared/button-cross';
+import { EBPSkeleton, EntBagProduct } from '../../../entites/bag-product';
+import { UiButtonDefault } from '../../../shared/button-default';
+
+export const Bag: FC = () => {
+  const bagRef = useRef<HTMLDivElement>(null);
+  const isBagOpen = useBagStore((state) => state.isBagOpen);
+  const setIsBagOpen = useBagStore((state) => state.setIsBagOpen);
+  const { data: bagProducts, isLoading, isError } = useBag();
+  const bag = useBagStore((state) => state.bagProducts);
+  const setBagProducts = useBagStore((state) => state.setBagProducts);
+  const { onDecr, onRemove, isSuccess, onAdd } = useBagFuncs();
+
+  useRemoveScroll(isBagOpen);
+  useModalOutside(bagRef, setIsBagOpen);
+
+  const onDecrement = async (productId: string, size: string, quantity: number): Promise<void> => {
+    if (quantity <= 1) {
+      await onRemove(productId, size);
+    } else {
+      await onDecr(productId, size, quantity);
+    }
+  };
+
+  useEffect(() => {
+    if (bagProducts && !isLoading && !isError) {
+      setBagProducts(bagProducts);
+    }
+  }, [bagProducts, isLoading, isError]);
+  useRefetchBag(isSuccess);
+  return (
+    <>
+      {isBagOpen && (
+        <div className="bag">
+          <div className="bag__wrapper" ref={bagRef}>
+            <div className="bag__title">
+              <span>Корзина</span>
+              <div className="bag__cross">
+                <UiButtonCross onClick={() => setIsBagOpen()} />
+              </div>
+            </div>
+            <div className="bag__products">
+              {bag && bag.length > 0 ? (
+                bag.map((product) => (
+                  <EntBagProduct
+                    key={product.id}
+                    id={product.productId}
+                    imageUrl={product.imageUrl}
+                    name={product.name}
+                    size={product.size}
+                    count={product.quantity}
+                    price={product.price}
+                    onDecr={onDecrement}
+                    onRemove={onRemove}
+                    onAdd={onAdd}
+                  />
+                ))
+              ) : isLoading || isError ? (
+                [...new Array(3)].map((_, index) => <EBPSkeleton key={index} />)
+              ) : (
+                <div className='bag__empty'>
+                  <span>Корзина пуста</span>
+                </div>
+              )}
+            </div>
+            <div className="bag__price">
+              <span>Всего:</span>
+              <span>
+                {formatPrice(
+                  bag.reduce((accum, item) => (accum += item.price * item.quantity), 0) || 0,
+                )}
+              </span>
+            </div>
+            <UiButtonDefault>Продолжить</UiButtonDefault>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
