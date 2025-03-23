@@ -8,7 +8,16 @@
 }
 
 * {
-  font-family: 'Gothic60', 'inter', sans-serif;
+  font-family:
+    'Gothic60',
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
   padding: 0;
   margin: 0;
   border: none;
@@ -121,7 +130,16 @@ body {
   box-sizing: border-box;
   height: 100%;
   overflow-x: hidden;
-  font-family: 'Gothic60', Inter, sans-serif;
+  font-family:
+    'Gothic60',
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
 }
 ol,
 ul {
