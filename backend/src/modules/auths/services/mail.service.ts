@@ -19,7 +19,7 @@ class MailSevice {
     await this.transporter.sendMail({
       from: process.env.SMTP_USER,
       to,
-      subject: 'Активация аккаунта на ' + process.env.API_URL,
+      subject: 'Активация аккаунта noir',
       text: '',
       html: `
 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size: 1px; line-height: normal;" bgcolor="#F8F8F8">
