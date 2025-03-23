@@ -6,7 +6,7 @@ export default (res: Response, refreshToken: string): void => {
     httpOnly: true,
     secure: true,
     sameSite: 'none',
-    domain: 'https://noir-three.vercel.app',
+    domain: 'noir-three.vercel.app',
     path: '/',
   });
 };
