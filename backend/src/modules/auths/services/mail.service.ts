@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+import nodemailer, { TransportOptions } from 'nodemailer';
 
 class MailSevice {
   transporter;
@@ -12,14 +12,14 @@ class MailSevice {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASSWORD,
       },
-    });
+    } as TransportOptions);
   }
 
   async sendActivationEmail(to: string, link: string, username: string): Promise<void> {
     await this.transporter.sendMail({
       from: process.env.SMTP_USER,
       to,
-      subject: 'Активация аккаунта noir',
+      subject: 'Активация аккаунта на ' + process.env.API_URL,
       text: '',
       html: `
 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="font-size: 1px; line-height: normal;" bgcolor="#F8F8F8">
