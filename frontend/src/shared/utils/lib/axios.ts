@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const instance = axios.create({
   withCredentials: true,
-  baseURL: 'http://noir-production.up.railway.app',
+  baseURL: 'https://noir-production.up.railway.app',
 });
 
 instance.interceptors.request.use((config) => {
