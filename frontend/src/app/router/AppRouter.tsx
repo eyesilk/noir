@@ -31,27 +31,6 @@ const PageActivate = lazy(() =>
 );
 
 export const AppRouter: FC = () => {
-  const { data: userData, isLoading, isError } = useRefresh();
-  const setUserData = useAuthStore((state) => state.setUserData);
-  const setIsAuthed = useAuthStore((state) => state.setIsAuthed);
-  const logout = useAuthStore((state) => state.logout);
-  const { mutate } = useTotalLogout();
-
-  useEffect(() => {
-    if (userData && !isLoading && !isError) {
-      if (!userData.user.isActivated) {
-        logout();
-        mutate();
-      } else {
-        localStorage.setItem('accessToken', userData.tokens.accessToken);
-        setUserData(userData.user);
-        setIsAuthed(true);
-      }
-    } else if (isError) {
-      logout();
-      mutate();
-    }
-  }, [isLoading, isError]);
 
   return (
     <Suspense fallback={<PageLoading />}>
