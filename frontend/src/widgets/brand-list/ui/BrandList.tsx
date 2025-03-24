@@ -2,7 +2,6 @@ import { FC } from 'react';
 import '../../../shared/assets/ui/styles/limits.scss';
 import './brand-list.scss';
 import { UiButtonWrapper } from '../../../shared/button-wrapper';
-import { secondWoman, thirdWoman } from '../../../shared/assets';
 import { useNavigate } from 'react-router-dom';
 import { useBrandList } from '../../../features/brands';
 import { UiLoader } from '../../../shared/loader';
@@ -15,19 +14,15 @@ export const BrandList: FC = () => {
     <section className="brand-list">
       <div className="brand-list__wrapper">
         {data && !isLoading && !isError ? (
-          <>
-            <ul className="brand-list__list">
-              {data.map((brand) => (
-                <li key={brand.id}>
-                  <UiButtonWrapper onClick={() => navigate(`/brand/${brand.id}`)}>
-                    <span className="brand-list__btn">{brand.name}</span>
-                  </UiButtonWrapper>
-                </li>
-              ))} 
-            </ul>
-            <img src={secondWoman} alt="woman" className="brand-list__img-first" />
-            <img src={thirdWoman} alt="woman" className="brand-list__img-second" />
-          </>
+          <ul className="brand-list__list">
+            {data.map((brand) => (
+              <li key={brand.id}>
+                <UiButtonWrapper onClick={() => navigate(`/brand/${brand.id}`)}>
+                  <span className="brand-list__btn">{brand.name}</span>
+                </UiButtonWrapper>
+              </li>
+            ))}
+          </ul>
         ) : (
           <div className="brand-list__loading">
             <UiLoader />

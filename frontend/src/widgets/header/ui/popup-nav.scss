@@ -14,12 +14,14 @@
   @media (max-width: 1100px) {
     height: 280px;
     padding-top: 85px;
+    min-width: 300px;
   }
   @media (max-width: 810px) {
     height: 100vh;
     background: #ffffff;
     width: fit-content;
     border-bottom: none;
+    min-width: 220px;
   }
 
   &__products {
