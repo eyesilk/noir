@@ -1,9 +1,7 @@
-import { FC, lazy, Suspense, useEffect } from 'react';
+import { FC, lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AppLayout } from '../layout';
 import { PageLoading } from '../../pages/loading';
-import { useAuthStore, useRefresh } from '../../features/auth';
-import { useTotalLogout } from '../../features/auth/api/hooks/useTotalLogout';
 
 const PageLanding = lazy(() =>
   import('../../pages/landing').then((module) => ({ default: module.PageLanding })),
