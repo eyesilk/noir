@@ -20,6 +20,8 @@ interface FullProductProps {
   onAdd: (...args: any[]) => any;
   isAdded: boolean;
   quantity: number;
+  isAuthed: boolean;
+  setIsAuthOpen: (...args: any[]) => any;
 }
 
 export const FullProduct: FC<FullProductProps> = ({
@@ -36,6 +38,8 @@ export const FullProduct: FC<FullProductProps> = ({
   onAdd,
   isAdded,
   quantity,
+  isAuthed,
+  setIsAuthOpen,
 }) => {
   const [isImageLoad, setIsImageLoad] = useState<boolean>(true);
   const [selectedSize, setSelectedSize] = useState<string>(sizes[0]);
@@ -64,9 +68,14 @@ export const FullProduct: FC<FullProductProps> = ({
           ))}
         </ul>
         {!isAdded ? (
-          <UiButtonDefault onCLick={() => onAdd(id, selectedSize, imageUrl, name, price)}>Добавить в корзину</UiButtonDefault>
+          <UiButtonDefault onCLick={isAuthed ? () => onAdd(id, selectedSize, imageUrl, name, price) : () => setIsAuthOpen()}>
+            Добавить в корзину
+          </UiButtonDefault>
         ) : (
-          <UiButtonDefault onCLick={() => onAdd(id, selectedSize, imageUrl, name, price)} color="black">
+          <UiButtonDefault
+            onCLick={() => onAdd(id, selectedSize, imageUrl, name, price)}
+            color="black"
+          >
             Добавлено в корзину: {quantity}
           </UiButtonDefault>
         )}

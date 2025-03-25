@@ -39,7 +39,7 @@ export const AppRouter: FC = () => {
   const { data: userData, isSuccess, isLoading, isError } = useRefresh(isEnabled);
   const setUserData = useAuthStore((state) => state.setUserData);
   const setIsAuthed = useAuthStore((state) => state.setIsAuthed);
-  const { mutate: logout } = useTotalLogout()
+  const { mutate: logout } = useTotalLogout();
   const token: string | null = localStorage.getItem('accessToken');
 
   let user: User | null = getUser();
@@ -47,7 +47,7 @@ export const AppRouter: FC = () => {
   useEffect(() => {
     if (!user) {
       setIsEnabled(true);
-    } else {
+    } else { 
       setUserData(user);
       setIsAuthed(true);
     }

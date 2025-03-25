@@ -6,11 +6,15 @@ import { UiLoader } from '../../../shared/loader';
 import { useBagFuncs, useBagStore, useRefetchBag } from '../../../features/bag';
 import { useScrollTo } from '../lib/useScrollTo';
 import { useRefirectIfError } from '../lib/useRedirectIfError';
+import { useAuthStore } from '../../../features/auth';
 
 export const FullProduct: FC = () => {
   const params = useParams<{ id: string }>();
+
   const { isSuccess, onAdd } = useBagFuncs();
   const bagProducts = useBagStore((state) => state.bagProducts);
+  const isAuthed = useAuthStore((state) => state.isAuthed);
+  const setIsAuthOpen = useAuthStore(state => state.setIsAuthOpen)
   const totalQuantity = bagProducts
     .filter((item) => item.productId === params.id)
     .reduce((sum, item) => sum + item.quantity, 0);
@@ -38,6 +42,8 @@ export const FullProduct: FC = () => {
           onAdd={onAdd}
           isAdded={!!bagProducts.find((item) => item.productId === params.id)}
           quantity={totalQuantity}
+          isAuthed={isAuthed}
+          setIsAuthOpen={setIsAuthOpen}
         />
       ) : (
         <div

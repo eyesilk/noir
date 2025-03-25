@@ -19,3 +19,4 @@ export { default as productPlaceholder } from './ui/img/product-placeholder.png'
 export { default as brandPlaceholder } from './ui/img/brand-placeholder.png';
 export { default as minus } from './ui/icons/minus.svg';
 export { default as plus } from './ui/icons/plus.svg';
+export { default as editIco } from './ui/icons/edit.svg';

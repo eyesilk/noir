@@ -161,10 +161,14 @@
 
       & > summary {
         display: flex;
-        justify-content: space-between;
         list-style: none;
+        justify-content: space-between;
         padding-bottom: 15px;
         border-bottom: 1px solid $eerie;
+
+        &::-webkit-details-marker {
+          display: none;
+        }
 
         @media (max-width: 1100px) {
           padding-bottom: 10px;
