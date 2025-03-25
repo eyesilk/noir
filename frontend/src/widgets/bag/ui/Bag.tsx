@@ -1,22 +1,24 @@
-import { FC, useEffect, useRef } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import './bag.scss';
 import { useBag, useBagFuncs, useBagStore, useRefetchBag } from '../../../features/bag';
 import { formatPrice, useModalOutside, useRemoveScroll } from '../../../shared/utils';
 import { UiButtonCross } from '../../../shared/button-cross';
 import { EBPSkeleton, EntBagProduct } from '../../../entites/bag-product';
 import { UiButtonDefault } from '../../../shared/button-default';
+import { useAuthStore } from '../../../features/auth';
 
 export const Bag: FC = () => {
   const bagRef = useRef<HTMLDivElement>(null);
   const isBagOpen = useBagStore((state) => state.isBagOpen);
   const setIsBagOpen = useBagStore((state) => state.setIsBagOpen);
-  const { data: bagProducts, isLoading, isError } = useBag();
+
+  const [isEnabled, setIsEnabled] = useState<boolean>(false);
+  const { data: bagProducts, isLoading, isError } = useBag(isEnabled);
+  const isAuthed = useAuthStore((state) => state.isAuthed);
+
   const bag = useBagStore((state) => state.bagProducts);
   const setBagProducts = useBagStore((state) => state.setBagProducts);
   const { onDecr, onRemove, isSuccess, onAdd } = useBagFuncs();
-
-  useRemoveScroll(isBagOpen);
-  useModalOutside(bagRef, setIsBagOpen);
 
   const onDecrement = async (productId: string, size: string, quantity: number): Promise<void> => {
     if (quantity <= 1) {
@@ -29,9 +31,19 @@ export const Bag: FC = () => {
   useEffect(() => {
     if (bagProducts && !isLoading && !isError) {
       setBagProducts(bagProducts);
+      setIsEnabled(false);
     }
   }, [bagProducts, isLoading, isError]);
+
+  useEffect(() => {
+    if (isAuthed) {
+      setIsEnabled(true);
+    }
+  }, [isAuthed]);
+
   useRefetchBag(isSuccess);
+  useRemoveScroll(isBagOpen);
+  useModalOutside(bagRef, setIsBagOpen);
   return (
     <>
       {isBagOpen && (
@@ -62,7 +74,7 @@ export const Bag: FC = () => {
               ) : isLoading || isError ? (
                 [...new Array(3)].map((_, index) => <EBPSkeleton key={index} />)
               ) : (
-                <div className='bag__empty'>
+                <div className="bag__empty">
                   <span>Корзина пуста</span>
                 </div>
               )}

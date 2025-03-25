@@ -14,5 +14,8 @@ export const useActivate = () => {
       setIsAuthed(false);
       localStorage.setItem('accessToken', '');
     },
+    onSettled: () => {
+      location.reload();
+    },
   });
 };

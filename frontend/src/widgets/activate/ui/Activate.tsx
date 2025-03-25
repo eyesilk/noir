@@ -19,7 +19,6 @@ export const Activate: FC = () => {
   useEffect(() => {
     if (isSuccess) {
       navigate('/');
-      location.reload();
     }
   }, [isSuccess]);
 

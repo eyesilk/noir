@@ -7,11 +7,9 @@ export const useTotalLogout = () => {
 
   return useMutation<{ message: string }, Error>({
     mutationFn: AuthApi.totalLogout,
-    onSuccess: () => {
+    onSettled: () => {
       logout();
-    },
-    onError: () => {
-      logout();
+      sessionStorage.removeItem('user');
     },
   });
 };

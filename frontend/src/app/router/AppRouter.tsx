@@ -1,7 +1,13 @@
-import { FC, lazy, Suspense } from 'react';
+import { FC, lazy, Suspense, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AppLayout } from '../layout';
 import { PageLoading } from '../../pages/loading';
+import { getUser } from '../../features/auth/api/getUser';
+import { User } from '../../features/auth/model/types/user.type';
+import { useAuthStore, useRefresh } from '../../features/auth';
+import { saveUser } from '../../features/auth/api/saveUser';
+import { jwtDecode } from 'jwt-decode';
+import { useTotalLogout } from '../../features/auth/api/hooks/useTotalLogout';
 
 const PageLanding = lazy(() =>
   import('../../pages/landing').then((module) => ({ default: module.PageLanding })),
@@ -29,6 +35,65 @@ const PageActivate = lazy(() =>
 );
 
 export const AppRouter: FC = () => {
+  const [isEnabled, setIsEnabled] = useState<boolean>(false);
+  const { data: userData, isSuccess, isLoading, isError } = useRefresh(isEnabled);
+  const setUserData = useAuthStore((state) => state.setUserData);
+  const setIsAuthed = useAuthStore((state) => state.setIsAuthed);
+  const { mutate: logout } = useTotalLogout()
+  const token: string | null = localStorage.getItem('accessToken');
+
+  let user: User | null = getUser();
+
+  useEffect(() => {
+    if (!user) {
+      setIsEnabled(true);
+    } else {
+      setUserData(user);
+      setIsAuthed(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (token) {
+      try {
+        const payload: { exp: number } = jwtDecode(token);
+        const expTime: number = payload.exp * 1000;
+        const now: number = Date.now();
+        const timeLeft = expTime - now;
+        if (timeLeft > 90 * 1000) {
+          const refreshTimeout = setTimeout(
+            () => {
+              setIsEnabled(true);
+            },
+            timeLeft - 60 * 1000,
+          );
+
+          return () => clearTimeout(refreshTimeout);
+        } else {
+          setIsEnabled(true);
+        }
+      } catch {
+        logout();
+      }
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (userData && isSuccess && !isLoading && !isError) {
+      setUserData(userData.user);
+      setIsAuthed(true);
+      saveUser(userData.user);
+      localStorage.setItem('accessToken', userData.tokens.accessToken);
+      setIsEnabled(false);
+    }
+    if (isError) {
+      logout();
+    }
+  }, [userData, isSuccess, isLoading, isError]);
+
+  if (isLoading) {
+    return <PageLoading />;
+  }
 
   return (
     <Suspense fallback={<PageLoading />}>
