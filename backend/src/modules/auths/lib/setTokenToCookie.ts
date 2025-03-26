@@ -6,6 +6,6 @@ export default (res: Response, refreshToken: string): void => {
     httpOnly: true,
     secure: process.env.IS_SECURE === 'true',
     sameSite: process.env.SAME_SITE as boolean | 'lax' | 'strict' | 'none',
-    domain: 'noir-three.vercel.app'
+    // domain: 'noir-three.vercel.app'
   });
 };
