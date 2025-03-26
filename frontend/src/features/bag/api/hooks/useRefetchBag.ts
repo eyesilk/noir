@@ -6,6 +6,8 @@ export const useRefetchBag = (isSuccess: boolean) => {
 
   useEffect(() => {
     if (isSuccess) {
+      console.log(isSuccess)
+
       queryClient.invalidateQueries({ queryKey: ['bag-products'] });
     }
   }, [isSuccess]);
