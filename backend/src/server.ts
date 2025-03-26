@@ -3,9 +3,14 @@ import prisma from './lib/prisma';
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,refreshToken');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,refreshToken,token');
   res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
   res.header('Content-Type', 'application/json;charset=utf-8');
+
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  }
+
   next();
 });
 
