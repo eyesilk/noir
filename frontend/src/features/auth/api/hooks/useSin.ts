@@ -15,7 +15,7 @@ export const useSin = (setMessage: Dispatch<SetStateAction<string>>) => {
       setIsAuthed(true);
       setUserData(data.user);
       localStorage.setItem('accessToken', data.tokens.accessToken);
-      location.reload();
+      // location.reload();
     },
     onError: (err: any) => {
       setMessage(err.response.data.message);
