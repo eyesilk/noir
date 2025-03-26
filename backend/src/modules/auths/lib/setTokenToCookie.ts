@@ -5,8 +5,7 @@ export default (res: Response, refreshToken: string): void => {
     maxAge: 32 * 24 * 60 * 60 * 1000,
     httpOnly: true,
     secure: true,
-    sameSite: 'none',
-    // sameSite: process.env.SAME_SITE as boolean | 'lax' | 'strict' | 'none',
-    // domain: 'noir-three.vercel.app'
+    sameSite: process.env.SAME_SITE as boolean | 'lax' | 'strict' | 'none',
+    domain: 'noir-three.vercel.app'
   });
 };
