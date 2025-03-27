@@ -6,7 +6,7 @@
       "use": "@vercel/node",
       "config": {
         "installCommand": "npm install --legacy-peer-deps",
-        "buildCommand": "npx prisma generate && npm run build",
+        "buildCommand": "npx prisma generate && npm run start",
         "startCommand": "npm run start"
       }
     },
@@ -15,5 +15,5 @@
       "use": "@vercel/static"
     }
   ],
-  "routes": [{ "src": "/(.*)", "dest": "/" }]
+  "routes": [{ "src": "/(.*)", "dest": "src/" }]
 }
