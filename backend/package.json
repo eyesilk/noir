@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register src/server.ts",
     "dev": "npx nodemon",
-    "build": "tsc && tsc-alias"
+    "build": "tsc && tsc-alias",
+    "postinstall": "prisma generate"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
