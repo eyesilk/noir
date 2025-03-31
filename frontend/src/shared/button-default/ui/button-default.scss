@@ -32,11 +32,11 @@
   }
 
   &:disabled {
-    background-color: $eerie; 
+    background-color: $eerie;
     color: #888;
-    border: 1px solid #bbb; 
-    cursor: not-allowed; 
-    pointer-events: none; 
+    border: 1px solid #bbb;
+    cursor: not-allowed;
+    pointer-events: none;
   }
 
   &--white {
@@ -71,6 +71,16 @@
       color: #888;
       color: $eerie;
       border: 1px solid #bbb;
+    }
+  }
+
+  &--grey {
+    background-color: $bonjour;
+
+    &:disabled {
+      background-color: $bonjour;
+      color: $eerie;
+      border: 1px solid $eerie;
     }
   }
 }

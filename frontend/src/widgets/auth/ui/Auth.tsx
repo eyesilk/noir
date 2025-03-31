@@ -1,12 +1,11 @@
 import { FC, useEffect, useRef, useState } from 'react';
-import { useAuthStore, useLoginSubmit } from '../../../features/auth';
+import { useAuthStore, useLoginSubmit, useRegisterSubmit } from '../../../features/auth';
 import { useModalOutside, useRemoveScroll } from '../../../shared/utils';
 import './auth.scss';
 import { UiButtonCross } from '../../../shared/button-cross';
 import { UiButtonGray } from '../../../shared/button-gray';
 import { UiButtonDefault } from '../../../shared/button-default';
 import { UiDotsLoader } from '../../../shared/dots-loader';
-import { useRegisterSubmit } from '../../../features/auth/lib/useRegisterSubmit';
 
 export const Auth: FC = () => {
   const modalRef = useRef<HTMLDivElement>(null);

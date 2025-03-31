@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { useSin } from '../api/hooks/useSin';
+import { useSin } from './useSin';
 
 export const useLoginSubmit = () => {
   const [message, setMessage] = useState<string>('');
@@ -19,5 +19,5 @@ export const useLoginSubmit = () => {
     });
   };
 
-  return {handleLoginSubmit, message, isPending, isSuccess}
+  return { handleLoginSubmit, message, isPending, isSuccess };
 };

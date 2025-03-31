@@ -31,21 +31,21 @@ export const Safety: FC = () => {
       value: userData?.username!,
       func: setIsChangeName,
       state: isChangeName,
-      popup: <UsernameChange />,
+      popup: <UsernameChange onClose={setIsChangeName}/>,
     },
     {
       title: 'Email',
       value: userData?.email!,
       func: setIsChangeEmail,
       state: isChangeEmail,
-      popup: <EmailChange />,
+      popup: <EmailChange onClose={setIsChangeEmail}/>,
     },
     {
       title: 'Пароль',
       value: '*******',
       func: setIsChangePass,
       state: isChangePass,
-      popup: <PasswordChange />,
+      popup: <PasswordChange onClose={setIsChangePass}/>,
     },
   ];
 

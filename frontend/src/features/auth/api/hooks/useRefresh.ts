@@ -7,5 +7,6 @@ export const useRefresh = (isEnabled: boolean) => {
     queryFn: AuthApi.refreshToken,
     refetchOnWindowFocus: false,
     enabled: isEnabled,
+    retry: 0,
   });
 };

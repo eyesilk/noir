@@ -2,10 +2,8 @@ import { FC, lazy, Suspense, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AppLayout } from '../layout';
 import { PageLoading } from '../../pages/loading';
-import { getUser } from '../../features/auth/api/getUser';
 import { User } from '../../features/auth/model/types/user.type';
-import { useAuthStore, useRefresh } from '../../features/auth';
-import { saveUser } from '../../features/auth/api/saveUser';
+import { getUser, saveUser, useAuthStore, useRefresh } from '../../features/auth';
 import { jwtDecode } from 'jwt-decode';
 import { useTotalLogout } from '../../features/auth/api/hooks/useTotalLogout';
 

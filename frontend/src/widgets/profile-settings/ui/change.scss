@@ -1,3 +1,5 @@
+@use '../../../shared/assets/ui/styles/variables.scss' as *;
+
 .change {
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
@@ -15,5 +17,42 @@
     height: fit-content;
     padding: 30px;
     background-color: #ffffff;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+  }
+
+  &__title {
+    font-size: 25px;
+    margin-bottom: 30px;
+  }
+
+  &__buttons {
+    display: flex;
+    width: 100%;
+    column-gap: 20px;
+  }
+
+  &__input-box {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+    width: 100%;
+
+    &>label {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    &>input {
+      height: 60px;
+      border: 1px solid $eerie;
+      width: 100%;
+      margin-bottom: 30px;
+      font-size: 20px;
+      text-transform: uppercase;
+    }
   }
 }

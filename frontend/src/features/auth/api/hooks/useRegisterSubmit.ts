@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { useSup } from '../api/hooks/useSup';
+import { useSup } from './useSup';
 
 export const useRegisterSubmit = () => {
   const [message, setMessage] = useState<string>('');

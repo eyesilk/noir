@@ -33,4 +33,28 @@ export default class AuthApi {
 
     return data;
   }
+
+  static async changeUsername(username: string): Promise<AuthAnswer> {
+    const { data } = await axios.patch('/auth/changeName', { username });
+
+    return data;
+  }
+
+  static async changePassowrd(fields: {
+    password: string;
+    newPassword: string;
+  }): Promise<AuthAnswer> {
+    const { data } = await axios.patch('/auth/changePass', fields);
+
+    return data;
+  }
+
+  static async changeEmail(fields: {
+    password: string;
+    email: string;
+  }): Promise<{ message: string }> {
+    const { data } = await axios.patch('/auth/changeEmail', fields);
+
+    return data;
+  }
 }
