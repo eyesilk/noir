@@ -122,6 +122,10 @@ class AuthService {
   ): Promise<{ tokens: TokensType; user: UserDtoType }> {
     const user: User = await findAndCheckUser(userId);
 
+    if(user.username === newName) {
+      throw ApiError.BadRequest("Имя пользователя уже установлено")
+    }
+
     const newUser: User | null = await prisma.user.update({
       where: {
         id: user.id,
@@ -182,7 +186,7 @@ class AuthService {
     const activationLink: string = uuidv4();
     await mailService.sendActivationEmail(
       newEmail,
-      `${process.env.API_URL}/auth/activateEmail/${activationLink}`,
+      `${process.env.CLIENT_URL}/activate-email/${activationLink}`,
       user.username,
     );
     await prisma.user.update({

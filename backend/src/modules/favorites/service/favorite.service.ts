@@ -11,7 +11,20 @@ class FavoriteService {
       where: {
         userId: user.id,
       },
-      include: { favoriteItems: true },
+      include: {
+        favoriteItems: {
+          include: {
+            product: {
+              select: {
+                id: true,
+                name: true,
+                price: true,
+                imageUrl: true,
+              },
+            },
+          },
+        },
+      },
     });
     if (!favorite) {
       throw ApiError.BadRequest('Избранные не найдены');
@@ -87,6 +100,24 @@ class FavoriteService {
     });
 
     return;
+  }
+
+  async checkFavorite(productId: string, userId: string): Promise<boolean> {
+    const user: User = await findAndCheckUser(userId);
+    const favorite: Favorite = await findFavorite(user.id);
+
+    const favoriteItem: FavoriteItem | null = await prisma.favoriteItem.findFirst({
+      where: {
+        productId,
+        favoriteId: favorite.id,
+      },
+    });
+
+    if (!favoriteItem) {
+      return false;
+    }
+
+    return true;
   }
 }
 

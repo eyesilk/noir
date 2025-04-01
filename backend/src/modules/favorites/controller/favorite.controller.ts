@@ -53,6 +53,19 @@ class FavoriteController {
       next(err);
     }
   }
+
+  async checkFavorite(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const userId: string = req.user?.id!;
+      const productId: string = req.params.id;
+
+      const isFavorite: boolean = await favoriteService.checkFavorite(productId, userId);
+
+      res.status(200).json(isFavorite);
+    } catch (err: unknown) {
+      next(err);
+    }
+  }
 }
 
 const favoriteController = new FavoriteController();
