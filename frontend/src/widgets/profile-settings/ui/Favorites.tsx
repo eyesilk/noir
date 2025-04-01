@@ -34,6 +34,10 @@ export const Favorites: FC = () => {
         <div className="favorites__not-found">
           <span>у вас пока нет избранных товаров</span>
         </div>
+      ) : (
+        <div className="favorites__not-found">
+          <span>у вас пока нет избранных товаров</span>
+        </div>
       )}
     </div>
   );
