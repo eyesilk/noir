@@ -78,6 +78,11 @@ class AuthService {
         userId: user.id,
       },
     });
+    await prisma.favorite.create({
+      data: {
+        userId: user.id,
+      },
+    });
     const userData = await generateAndSaveTokens(user);
 
     return userData.tokens.refreshToken;
