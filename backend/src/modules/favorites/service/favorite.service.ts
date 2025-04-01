@@ -27,7 +27,11 @@ class FavoriteService {
       },
     });
     if (!favorite) {
-      throw ApiError.BadRequest('Избранные не найдены');
+      await prisma.favorite.create({
+        data: {
+          userId: user.id,
+        },
+      });
     }
     return favorite;
   }
