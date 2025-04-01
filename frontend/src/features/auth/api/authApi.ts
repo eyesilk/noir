@@ -22,6 +22,12 @@ export default class AuthApi {
     return data;
   }
 
+  static async activationEmail(link: string): Promise<AuthAnswer> {
+    const { data } = await axios.get(`/auth/activateEmail/${link}`);
+
+    return data;
+  }
+
   static async refreshToken(): Promise<AuthAnswer> {
     const { data } = await axios.get('/auth/refresh');
 

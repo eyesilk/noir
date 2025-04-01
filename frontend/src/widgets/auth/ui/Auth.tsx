@@ -17,7 +17,7 @@ export const Auth: FC = () => {
   const { message: supMessage, isPending: supPending, handleRegisterSubmit } = useRegisterSubmit();
   const {
     message: sinMessage,
-    isPending: sinPending,
+    isPending: sinPending, 
     handleLoginSubmit,
     isSuccess,
   } = useLoginSubmit();

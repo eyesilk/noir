@@ -1,26 +1,39 @@
 import { FC, useEffect } from 'react';
 import { UiDotsLoader } from '../../../shared/dots-loader';
-import { useActivate } from '../../../features/auth';
+import { useActivate, useActivateEmail } from '../../../features/auth';
 import { useNavigate, useParams } from 'react-router-dom';
 
-export const Activate: FC = () => {
+interface ActivateProps {
+  type: 'account' | 'email';
+}
+
+export const Activate: FC<ActivateProps> = ({ type }) => {
   const params = useParams<{ link: string }>();
   const navigate = useNavigate();
-  const { mutateAsync, isSuccess } = useActivate();
+  const { mutateAsync: activationAccount, isSuccess: isAccountSuccess } = useActivate();
+  const { mutateAsync: activateEmail, isSuccess: isEmailSuccess } = useActivateEmail();
 
   useEffect(() => {
     const fetchActivate = async (link: string) => {
-      await mutateAsync(link);
+      if (type === 'account') {
+        await activationAccount(link);
+      }
+      if (type === 'email') {
+        await activateEmail(link);
+      }
     };
 
     fetchActivate(params.link!);
   }, []);
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isAccountSuccess || isEmailSuccess) {
       navigate('/');
     }
-  }, [isSuccess]);
+    if (isEmailSuccess) {
+      location.reload()
+    }
+  }, [isAccountSuccess, isEmailSuccess]);
 
   return (
     <div

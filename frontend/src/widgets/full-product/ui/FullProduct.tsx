@@ -7,14 +7,17 @@ import { useBagFuncs, useBagStore, useRefetchBag } from '../../../features/bag';
 import { useScrollTo } from '../lib/useScrollTo';
 import { useRefirectIfError } from '../lib/useRedirectIfError';
 import { useAuthStore } from '../../../features/auth';
+import { useFavFuncs } from '../../../features/favorites';
 
 export const FullProduct: FC = () => {
   const params = useParams<{ id: string }>();
 
+  const { isFavorite, onClickFav } = useFavFuncs(params.id!);
+
   const { isSuccess, onAdd } = useBagFuncs();
   const bagProducts = useBagStore((state) => state.bagProducts);
   const isAuthed = useAuthStore((state) => state.isAuthed);
-  const setIsAuthOpen = useAuthStore(state => state.setIsAuthOpen)
+  const setIsAuthOpen = useAuthStore((state) => state.setIsAuthOpen);
   const totalQuantity = bagProducts
     .filter((item) => item.productId === params.id)
     .reduce((sum, item) => sum + item.quantity, 0);
@@ -44,6 +47,8 @@ export const FullProduct: FC = () => {
           quantity={totalQuantity}
           isAuthed={isAuthed}
           setIsAuthOpen={setIsAuthOpen}
+          isFav={isFavorite}
+          onFav={() => onClickFav(params.id!)}
         />
       ) : (
         <div

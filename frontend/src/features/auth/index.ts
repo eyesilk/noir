@@ -7,3 +7,7 @@ export { useLoginSubmit } from './api/hooks/useLoginSubmit';
 export { useRegisterSubmit } from './api/hooks/useRegisterSubmit';
 export { getUser } from './lib/getUser';
 export { saveUser } from './lib/saveUser';
+export { useChangeName } from './api/hooks/useChangeName';
+export { useChangePass } from './api/hooks/useChangePass';
+export { useChangeEmail } from './api/hooks/useChangeEmail';
+export { useActivateEmail } from './api/hooks/useActivateEmail';

@@ -105,7 +105,8 @@ export const AppRouter: FC = () => {
           <Route path="/profile" element={<PageProfile />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
-        <Route path="/activate/:link" element={<PageActivate />} />
+        <Route path="/activate/:link" element={<PageActivate type='account' />} />
+        <Route path="/activate-email/:link" element={<PageActivate type='email' />} />
       </Routes>
     </Suspense>
   );

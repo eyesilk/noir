@@ -54,8 +54,8 @@ export const Safety: FC = () => {
     <>
       <div className="safety">
         <ul className="safety__info">
-          {safetyParams.map((param) => (
-            <li>
+          {safetyParams.map((param, index) => (
+            <li key={index}>
               <span className="safety__params-title">{param.title}</span>
               <span>{param.value}</span>
               <button className="safety__edit-button" onClick={() => param.func((prev) => !prev)}>

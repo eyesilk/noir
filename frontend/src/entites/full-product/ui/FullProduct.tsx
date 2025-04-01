@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { formatPrice } from '../../../shared/utils';
 import './full-product.scss';
 import { UiButtonGray } from '../../../shared/button-gray';
-import { arrowIco, emptyHeart } from '../../../shared/assets';
+import { arrowIco, emptyHeart, heartSolid } from '../../../shared/assets';
 import { UiButtonWrapper } from '../../../shared/button-wrapper';
 import { UiButtonDefault } from '../../../shared/button-default';
 
@@ -22,6 +22,8 @@ interface FullProductProps {
   quantity: number;
   isAuthed: boolean;
   setIsAuthOpen: (...args: any[]) => any;
+  onFav: (...args: any[]) => any;
+  isFav: boolean;
 }
 
 export const FullProduct: FC<FullProductProps> = ({
@@ -40,6 +42,8 @@ export const FullProduct: FC<FullProductProps> = ({
   quantity,
   isAuthed,
   setIsAuthOpen,
+  isFav,
+  onFav,
 }) => {
   const [isImageLoad, setIsImageLoad] = useState<boolean>(true);
   const [selectedSize, setSelectedSize] = useState<string>(sizes[0]);
@@ -49,8 +53,12 @@ export const FullProduct: FC<FullProductProps> = ({
       <div className="ent-full-product__descr">
         <div>
           <h1>{brandName}</h1>
-          <UiButtonWrapper>
-            <img src={emptyHeart} alt="empty heart" />
+          <UiButtonWrapper onClick={onFav}>
+            {!isFav ? (
+              <img src={emptyHeart} alt="empty heart" />
+            ) : (
+              <img src={heartSolid} alt="solid heart" />
+            )}
           </UiButtonWrapper>
         </div>
 
@@ -68,7 +76,13 @@ export const FullProduct: FC<FullProductProps> = ({
           ))}
         </ul>
         {!isAdded ? (
-          <UiButtonDefault onCLick={isAuthed ? () => onAdd(id, selectedSize, imageUrl, name, price) : () => setIsAuthOpen()}>
+          <UiButtonDefault
+            onCLick={
+              isAuthed
+                ? () => onAdd(id, selectedSize, imageUrl, name, price)
+                : () => setIsAuthOpen()
+            }
+          >
             Добавить в корзину
           </UiButtonDefault>
         ) : (
