@@ -6,7 +6,7 @@ import './favoties.scss';
 import { UiButtonWrapper } from '../../../shared/button-wrapper';
 
 export const Favorites: FC = () => {
-  const { data: favItems, isLoading } = useFav();
+  const { data: favItems, isLoading, isError } = useFav();
   const { clearFav, isPending } = useClearFav();
 
   return (
@@ -30,7 +30,7 @@ export const Favorites: FC = () => {
             </Link>
           ))}
         </div>
-      ) : (
+      ) : isError ? (
         <div className="favorites__not-found">
           <span>у вас пока нет избранных товаров</span>
         </div>
