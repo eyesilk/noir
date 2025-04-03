@@ -110,4 +110,38 @@
       font-size: 20px;
     }
   }
+
+  &__animate-enter {
+    opacity: 0;
+    position: absolute;
+    right: -602px;
+    @media (max-width: 1100px) {
+      right: -450px;
+    }
+    @media (max-width: 500px) {
+      right: -320px;
+    }
+  }
+  &__animate-enter-active {
+    opacity: 1;
+    right: 0px;
+    transition: all 200ms;
+    @media (max-width: 810px) {
+      top: 0;
+    }
+  }
+  &__animate-exit {
+    opacity: 1;
+    top: 0px;
+    @media (max-width: 810px) {
+      top: 0;
+    }
+  }
+  &__animate-exit-active {
+    opacity: 0;
+    transition: all 200ms;
+    @media (max-width: 810px) {
+      top: 0;
+    }
+  }
 }

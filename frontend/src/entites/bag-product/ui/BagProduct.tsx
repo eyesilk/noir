@@ -12,17 +12,27 @@ interface BagProductProps {
   price: number;
   size: string;
   count: number;
-  onAdd: (...args: any[]) => any;
+  onIncr: (...args: any[]) => any;
   onDecr: (...args: any[]) => any;
   onRemove: (...args: any[]) => any;
 }
 
-export const BagProduct: FC<BagProductProps> = ({ id, imageUrl, name, price, size, count, onDecr, onAdd, onRemove }) => {
+export const BagProduct: FC<BagProductProps> = ({
+  id,
+  imageUrl,
+  name,
+  price,
+  size,
+  count,
+  onDecr,
+  onIncr,
+  onRemove,
+}) => {
   const formatLink = (link: string): string => {
     return link.replace('/upload', '/upload/h_450,f_auto');
   };
 
-  return ( 
+  return (
     <div className="bag-product">
       <img src={formatLink(imageUrl)} alt={name} />
       <div className="bag-product__info">
@@ -43,7 +53,7 @@ export const BagProduct: FC<BagProductProps> = ({ id, imageUrl, name, price, siz
             <img src={minus} alt="remove one" />
           </UiButtonWrapper>
           <span>{count}</span>
-          <UiButtonWrapper onClick={() => onAdd(id, size, imageUrl, name, price)}>
+          <UiButtonWrapper onClick={() => onIncr(id, size, imageUrl, name, price)}>
             <img src={plus} alt="add one" />
           </UiButtonWrapper>
         </span>

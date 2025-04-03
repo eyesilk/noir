@@ -6,6 +6,7 @@ import { UiButtonCross } from '../../../shared/button-cross';
 import { EBPSkeleton, EntBagProduct } from '../../../entites/bag-product';
 import { UiButtonDefault } from '../../../shared/button-default';
 import { useAuthStore } from '../../../features/auth';
+import { CSSTransition } from 'react-transition-group';
 
 export const Bag: FC = () => {
   const bagRef = useRef<HTMLDivElement>(null);
@@ -18,7 +19,7 @@ export const Bag: FC = () => {
 
   const bag = useBagStore((state) => state.bagProducts);
   const setBagProducts = useBagStore((state) => state.setBagProducts);
-  const { onDecr, onRemove, isSuccess, onAdd } = useBagFuncs();
+  const { onDecr, onRemove, isSuccess, onIncr } = useBagFuncs();
 
   const onDecrement = async (productId: string, size: string, quantity: number): Promise<void> => {
     if (quantity <= 1) {
@@ -46,7 +47,13 @@ export const Bag: FC = () => {
   useModalOutside(bagRef, setIsBagOpen);
   return (
     <>
-      {isBagOpen && (
+      <CSSTransition
+        in={isBagOpen}
+        timeout={300}
+        classNames="bag__animate"
+        nodeRef={bagRef}
+        unmountOnExit
+      >
         <div className="bag">
           <div className="bag__wrapper" ref={bagRef}>
             <div className="bag__title">
@@ -68,7 +75,7 @@ export const Bag: FC = () => {
                     price={product.price}
                     onDecr={onDecrement}
                     onRemove={onRemove}
-                    onAdd={onAdd}
+                    onIncr={onIncr}
                   />
                 ))
               ) : isLoading || isError ? (
@@ -90,7 +97,7 @@ export const Bag: FC = () => {
             <UiButtonDefault>Продолжить</UiButtonDefault>
           </div>
         </div>
-      )}
+      </CSSTransition>
     </>
   );
 };

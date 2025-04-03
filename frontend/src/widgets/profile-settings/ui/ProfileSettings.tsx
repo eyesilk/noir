@@ -26,14 +26,14 @@ export const ProfileSettings: FC = () => {
 
   useEffect(() => {
     if (!searchParams.get('tab')) {
-      setSearchParams({ tab: 'favorites' });
+      setSearchParams({ tab: 'favorites' }, { replace: true });
     }
   }, [searchParams, setSearchParams]);
 
   const currentTab = searchParams.get('tab') || 'favorites';
 
   const handleTabChange = (tab: string) => {
-    setSearchParams({ tab });
+    setSearchParams({ tab }, { replace: true });
   };
 
   return (
@@ -42,7 +42,10 @@ export const ProfileSettings: FC = () => {
       <section className="profile__section">
         <ul className="profile__tabs">
           <li>
-            <ButtonGray onClick={() => handleTabChange('favorites')} active={currentTab === 'favorites'}>
+            <ButtonGray
+              onClick={() => handleTabChange('favorites')}
+              active={currentTab === 'favorites'}
+            >
               Избранное
             </ButtonGray>
           </li>

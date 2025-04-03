@@ -53,7 +53,6 @@ export const Header: FC = () => {
                 )}
               </li>
               <li>
-                {' '}
                 {!isAuthed ? (
                   <UiButtonWrapper onClick={() => setIsAuthOpen()}>
                     <img src={productsIco} alt="account" />

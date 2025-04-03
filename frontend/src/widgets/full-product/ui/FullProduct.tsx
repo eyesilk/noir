@@ -14,12 +14,14 @@ export const FullProduct: FC = () => {
 
   const { isFavorite, onClickFav } = useFavFuncs(params.id!);
 
-  const { isSuccess, onAdd } = useBagFuncs();
+  const isSizeAdded = (size: string) =>
+    !!bagProducts.find((item) => item.productId === params.id && item.size === size);
+  const { isSuccess, onAdd, onIncr } = useBagFuncs();
   const bagProducts = useBagStore((state) => state.bagProducts);
   const isAuthed = useAuthStore((state) => state.isAuthed);
   const setIsAuthOpen = useAuthStore((state) => state.setIsAuthOpen);
-  const totalQuantity = bagProducts
-    .filter((item) => item.productId === params.id)
+  const totalQuantity = (size: string) => bagProducts
+    .filter((item) => item.productId === params.id && item.size === size)
     .reduce((sum, item) => sum + item.quantity, 0);
 
   const { data: product, isError, isLoading } = useSingleProduct(params.id!);
@@ -43,7 +45,8 @@ export const FullProduct: FC = () => {
           instructions={product.instructions!}
           country={product.country!}
           onAdd={onAdd}
-          isAdded={!!bagProducts.find((item) => item.productId === params.id)}
+          onIncr={onIncr}
+          isAdded={isSizeAdded}
           quantity={totalQuantity}
           isAuthed={isAuthed}
           setIsAuthOpen={setIsAuthOpen}

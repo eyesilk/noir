@@ -11,6 +11,10 @@ export class BagApi {
     await axios.put('/cart/add', fields);
   }
 
+  static async incrToBag(fields: { productId: string; size: string }): Promise<void> {
+    await axios.put('/cart/increment', fields);
+  }
+
   static async decrFromBag(fields: { productId: string; size: string }): Promise<void> {
     await axios.delete('/cart/decrement', { data: fields });
   }

@@ -18,8 +18,9 @@ interface FullProductProps {
   instructions: string;
   country: string;
   onAdd: (...args: any[]) => any;
-  isAdded: boolean;
-  quantity: number;
+  onIncr: (...args: any[]) => any;
+  isAdded: (size: string) => boolean;
+  quantity: (size: string) => number;
   isAuthed: boolean;
   setIsAuthOpen: (...args: any[]) => any;
   onFav: (...args: any[]) => any;
@@ -38,6 +39,7 @@ export const FullProduct: FC<FullProductProps> = ({
   instructions,
   country,
   onAdd,
+  onIncr,
   isAdded,
   quantity,
   isAuthed,
@@ -75,7 +77,7 @@ export const FullProduct: FC<FullProductProps> = ({
             </li>
           ))}
         </ul>
-        {!isAdded ? (
+        {!isAdded(selectedSize) ? (
           <UiButtonDefault
             onCLick={
               isAuthed
@@ -87,10 +89,10 @@ export const FullProduct: FC<FullProductProps> = ({
           </UiButtonDefault>
         ) : (
           <UiButtonDefault
-            onCLick={() => onAdd(id, selectedSize, imageUrl, name, price)}
+            onCLick={() => onIncr(id, selectedSize, imageUrl, name, price)}
             color="black"
           >
-            Добавлено в корзину: {quantity}
+            Добавлено в корзину: {quantity(selectedSize)}
           </UiButtonDefault>
         )}
 
