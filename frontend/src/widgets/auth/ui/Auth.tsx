@@ -6,6 +6,7 @@ import { UiButtonCross } from '../../../shared/button-cross';
 import { UiButtonGray } from '../../../shared/button-gray';
 import { UiButtonDefault } from '../../../shared/button-default';
 import { UiDotsLoader } from '../../../shared/dots-loader';
+import { CSSTransition } from 'react-transition-group';
 
 export const Auth: FC = () => {
   const modalRef = useRef<HTMLDivElement>(null);
@@ -17,7 +18,7 @@ export const Auth: FC = () => {
   const { message: supMessage, isPending: supPending, handleRegisterSubmit } = useRegisterSubmit();
   const {
     message: sinMessage,
-    isPending: sinPending, 
+    isPending: sinPending,
     handleLoginSubmit,
     isSuccess,
   } = useLoginSubmit();
@@ -33,7 +34,13 @@ export const Auth: FC = () => {
 
   return (
     <>
-      {isAuthOpen && (
+      <CSSTransition
+        in={isAuthOpen}
+        timeout={300}
+        classNames="auth__animate"
+        nodeRef={modalRef}
+        unmountOnExit
+      >
         <div className="auth">
           <div className="auth__wrapper" ref={modalRef}>
             <div className="auth__title">
@@ -62,7 +69,7 @@ export const Auth: FC = () => {
                 <label htmlFor="password">Пароль</label>
                 <input type="password" id="password" name="password" required />
                 <UiButtonDefault type="submit" disabled={sinPending && true}>
-                  {sinPending ? <UiDotsLoader color='white' /> : 'Войти'}
+                  {sinPending ? <UiDotsLoader color="white" /> : 'Войти'}
                 </UiButtonDefault>
               </form>
             ) : (
@@ -82,13 +89,13 @@ export const Auth: FC = () => {
                 </p>
 
                 <UiButtonDefault type="submit" disabled={supPending && true}>
-                  {supPending ? <UiDotsLoader color='white' /> : 'Зарегистрироваться'}
+                  {supPending ? <UiDotsLoader color="white" /> : 'Зарегистрироваться'}
                 </UiButtonDefault>
               </form>
             )}
           </div>
         </div>
-      )}
+      </CSSTransition>
     </>
   );
 };

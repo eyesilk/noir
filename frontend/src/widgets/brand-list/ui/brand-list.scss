@@ -13,7 +13,7 @@
     margin-top: 50px;
     margin-bottom: 100px;
     height: 100%;
-    min-height: 875px;
+    min-height: 725px;
     width: calc(100% - 162px);
     background-image: url('../../../shared/assets/ui/img/wmn2.png');
     background-size: contain;
@@ -48,6 +48,8 @@
   }
 
   &__list {
+    position: absolute;
+    top: 10vh;
     margin-top: 83px;
     height: 510px;
     width: fit-content;

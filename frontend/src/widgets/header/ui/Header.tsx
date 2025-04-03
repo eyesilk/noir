@@ -1,7 +1,7 @@
 import { FC, useRef, useState } from 'react';
 import './header.scss';
 import { UiButtonWrapper } from '../../../shared/button-wrapper';
-import { accountIco, burgerBtnIco, logo, productsIco, searchIco } from '../../../shared/assets';
+import { accountIco, burgerBtnIco, logo, productsIco } from '../../../shared/assets';
 import { Link } from 'react-router-dom';
 import '../../../shared/assets/ui/styles/limits.scss';
 import { PopupNav } from './PopupNav';
@@ -36,11 +36,11 @@ export const Header: FC = () => {
           </UiButtonWrapper>
           <nav className="header__navbar">
             <ul>
-              <li>
+              {/* <li>
                 <UiButtonWrapper>
                   <img src={searchIco} alt="search" />
                 </UiButtonWrapper>
-              </li>
+              </li> */}
               <li>
                 {!isAuthed ? (
                   <UiButtonWrapper onClick={() => setIsAuthOpen()}>

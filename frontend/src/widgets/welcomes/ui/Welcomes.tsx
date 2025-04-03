@@ -1,13 +1,11 @@
 import { FC } from 'react';
 import './welcomes.scss';
 import { firstWoman, logo } from '../../../shared/assets';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { UiButtonContinue } from '../../../shared/button-continue';
 import '../../../shared/assets/ui/styles/limits.scss'
 
 export const Welcomes: FC = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="welcomes">
       <section className="welcomes__first-section">
@@ -45,10 +43,10 @@ export const Welcomes: FC = () => {
             дропы и капсульные коллекции. Мы постоянно развиваемся, открывая новые имена и следуя за
             главными экспериментальными тенденциями в моде.
           </p>
-          <UiButtonContinue onClick={() => navigate('/all/products')}>
-              <div className='welcomes__catalog-btn'>
+          <UiButtonContinue>
+              <Link className='welcomes__catalog-btn' to='/man/products'>
                 <span>Перейти в каталог</span>
-              </div>
+              </Link>
           </UiButtonContinue>
         </div>
       </section>

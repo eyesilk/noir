@@ -11,6 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  
 
   &__popup {
     width: 845px;
@@ -21,17 +22,43 @@
     align-items: start;
     justify-content: start;
     flex-direction: column;
+    margin: 81px;
+    @media (max-width: 1100px) {
+      margin: 61px;
+      padding: 25px;
+    }
+    @media (max-width: 650px) {
+      margin: 21px;
+      padding: 20px;
+    }
   }
 
   &__title {
     font-size: 25px;
     margin-bottom: 30px;
+    @media (max-width: 1100px) {
+      font-size: 20px;
+    }
+    @media (max-width: 500px) {
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
   }
 
   &__buttons {
     display: flex;
     width: 100%;
     column-gap: 20px;
+    @media (max-width: 1100px) {
+      column-gap: 10px;
+    }
+
+    & > button {
+      @media (max-width: 500px) {
+        padding: 10px;
+        font-size: 12px;
+      }
+    }
   }
 
   &__input-box {
@@ -44,6 +71,14 @@
     &>label {
       font-size: 20px;
       margin-bottom: 15px;
+      @media (max-width: 1100px) {
+        font-size: 15px;
+        margin-bottom: 10px;
+      }
+      @media (max-width: 500px) {
+        font-size: 12px;
+        margin-bottom: 7px;
+      }
     }
 
     &>input {
@@ -56,6 +91,15 @@
 
       &:-webkit-autofill {
         box-shadow: 0 0 0px 1000px $bonjour inset;
+      }
+
+      @media (max-width: 1100px) {
+        margin-bottom: 25px;
+        height: 50px;
+      }
+      @media (max-width: 500px) {
+        margin-bottom: 17px;
+        height: 35px;
       }
     }
   }

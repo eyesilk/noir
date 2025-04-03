@@ -28,7 +28,7 @@ export const Safety: FC = () => {
   }[] = [
     {
       title: 'Имя',
-      value: userData?.username!,
+      value: userData?.username!, 
       func: setIsChangeName,
       state: isChangeName,
       popup: <UsernameChange onClose={setIsChangeName}/>,
