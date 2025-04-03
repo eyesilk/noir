@@ -53,7 +53,29 @@ class CartService {
       },
     });
   }
+  async incrProductToCart(userId: string, productId: string, size: string): Promise<void> {
+    const user: User = await findAndCheckUser(userId);
+    const product = await prisma.product.findUnique({ where: { id: productId } });
 
+    if (!product) throw ApiError.BadRequest('Товара не существует');
+
+    let cart: Cart | null = await prisma.cart.findUnique({ where: { userId: user.id } });
+
+    if (!cart) {
+      cart = await prisma.cart.create({ data: { userId: user.id } });
+    }
+
+    await prisma.cartItem.update({
+      where: {
+        cartId_productId_size: { cartId: cart.id, productId, size },
+      },
+      data: {
+        quantity: {
+          increment: 1,
+        },
+      },
+    });
+  }
   async decrementProductFromCart(userId: string, productId: string, size: string): Promise<void> {
     const cartItem: CartItem = await findCartItem(userId, productId, size);
 

@@ -26,6 +26,18 @@ class CartController {
       next(err);
     }
   }
+  async incrProductToCart(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const productId: string = req.body.productId;
+      const size: string = req.body.size;
+      const userId: string = req.user?.id!;
+
+      await cartService.incrProductToCart(userId, productId, size);
+      res.status(200).json({ message: 'Товар добавлен в корзину' });
+    } catch (err: unknown) {
+      next(err);
+    }
+  }
   async decrementProductFromCart(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const productId: string = req.body.productId;
@@ -43,7 +55,6 @@ class CartController {
       const productId: string = req.body.productId;
       const size: string = req.body.size;
       const userId: string = req.user?.id!;
-
 
       await cartService.deleteProductFromCart(userId, productId, size);
       res.status(200).json({ message: 'Товар удален из корзины' });
