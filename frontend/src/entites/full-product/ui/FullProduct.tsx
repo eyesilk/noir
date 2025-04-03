@@ -55,7 +55,7 @@ export const FullProduct: FC<FullProductProps> = ({
       <div className="ent-full-product__descr">
         <div>
           <h1>{brandName}</h1>
-          <UiButtonWrapper onClick={onFav}>
+          <UiButtonWrapper onClick={ isAuthed ? () => onFav() : () => setIsAuthOpen()}>
             {!isFav ? (
               <img src={emptyHeart} alt="empty heart" />
             ) : (
